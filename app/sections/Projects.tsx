@@ -37,6 +37,41 @@ const projects: Project[] = [
     collaborationHref: "https://www.reliablestorage.com/",
   },
   {
+    title: "Reliable Storage Truck Rental Automation Platform",
+    description:
+      "Production cloud automation platform managing the complete truck rental lifecycle for a commercial self-storage company — synchronizing bookings, processing payments, generating electronic lease documents, and delivering automated SMS and email notifications through an event-driven workflow.",
+    skills: [
+      "Google Apps Script",
+      "Pipedream",
+      "Stripe API",
+      "DocuSeal API",
+      "Twilio",
+      "SendGrid",
+      "Google Workspace APIs",
+      "Webhooks",
+      "Event-Driven Architecture",
+      "Serverless Backend",
+    ],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/SolomonBell/reliable-storage-script",
+      },
+      {
+        label: "Video Walkthrough",
+        href: "https://www.youtube.com/watch?v=v4nrowu-jsk",
+      },
+      {
+        label: "Company Site",
+        href: "https://www.reliablestorage.com/",
+      },
+    ],
+    subtitle: "Client Project",
+    image: "/images/maintenance-script.jpg",
+    collaboration: "collaborative",
+    collaborationHref: "https://www.reliablestorage.com/",
+  },
+  {
     title: "Flashcards Platform",
     description:
       "Built a spaced-repetition web app for multi-user classrooms with shared decks, AI grading, and flashcard generation. Implemented staged recall algorithms, dual-storage architecture, a Node.js AI proxy, and session analytics with CSV export while refining the product through stakeholder interviews.",
