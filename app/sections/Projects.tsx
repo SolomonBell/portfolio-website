@@ -37,7 +37,7 @@ const projects: Project[] = [
     collaborationHref: "https://www.reliablestorage.com/",
   },
   {
-    title: "Reliable Storage Truck Rental Automation Platform",
+    title: "Moving Vehicle System",
     description:
       "Production cloud automation platform managing the complete truck rental lifecycle for a commercial self-storage company — synchronizing bookings, processing payments, generating electronic lease documents, and delivering automated SMS and email notifications through an event-driven workflow.",
     skills: [
@@ -47,19 +47,19 @@ const projects: Project[] = [
       "DocuSeal API",
       "Twilio",
       "SendGrid",
-      "Google Workspace APIs",
+      "Google Workspace",
       "Webhooks",
-      "Event-Driven Architecture",
-      "Serverless Backend",
+      "Event-Driven",
+      "Serverless",
     ],
     links: [
       {
         label: "GitHub",
         href: "https://github.com/SolomonBell/reliable-storage-script",
       },
+      // TODO: add Video Walkthrough URL when available
       {
         label: "Video Walkthrough",
-        href: "https://www.youtube.com/watch?v=v4nrowu-jsk",
       },
       {
         label: "Company Site",
