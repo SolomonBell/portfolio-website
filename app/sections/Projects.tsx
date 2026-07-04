@@ -55,7 +55,7 @@ const projects: Project[] = [
     links: [
       {
         label: "GitHub",
-        href: "https://github.com/SolomonBell/reliable-storage-script",
+        href: "https://github.com/SolomonBell/truck-script",
       },
       // TODO: add Video Walkthrough URL when available
       {
