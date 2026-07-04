@@ -72,6 +72,34 @@ const projects: Project[] = [
     collaborationHref: "https://www.reliablestorage.com/",
   },
   {
+    title: "Strategy Foundry",
+    description:
+      "Built an AI-assisted quantitative research platform that transforms natural-language trading ideas into validated algorithmic strategies through automated strategy generation, LEAN backtesting, benchmark scoring, and performance analysis.",
+    skills: [
+      "Python",
+      "LEAN Engine",
+      "QuantConnect",
+      "Docker",
+      "Anthropic Claude API",
+      "Claude Code",
+      "Pydantic",
+      "pytest",
+      "Ruff",
+      "Git",
+      "CLI Development",
+      "Prompt Engineering",
+    ],
+    links: [
+      {
+        label: "GitHub",
+        href: "https://github.com/SolomonBell/strategy-foundry",
+      },
+    ],
+    subtitle: "Personal Project",
+    image: "/images/strategy-foundry-preview.jpg",
+    collaboration: "solo",
+  },
+  {
     title: "Flashcards Platform",
     description:
       "Built a spaced-repetition web app for multi-user classrooms with shared decks, AI grading, and flashcard generation. Implemented staged recall algorithms, dual-storage architecture, a Node.js AI proxy, and session analytics with CSV export while refining the product through stakeholder interviews.",
