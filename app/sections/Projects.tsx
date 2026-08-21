@@ -60,6 +60,7 @@ const projects: Project[] = [
       // TODO: add Video Walkthrough URL when available
       {
         label: "Video Walkthrough",
+        href: "https://youtu.be/dwMCak1l98M",
       },
       {
         label: "Company Site",
