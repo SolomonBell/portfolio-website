@@ -4,7 +4,7 @@ import About from "./sections/About";
 import Projects from "./sections/Projects";
 import Investing from "./sections/Investing";
 import Certificates from "./sections/Certificates";
-import Hobbies from "./sections/Hobbies";
+import Athletics from "./sections/Athletics";
 import Contact from "./sections/Contact";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
       <Projects />
       <Investing />
       <Certificates />
-      <Hobbies />
+      <Athletics />
       <Contact />
     </main>
   );

@@ -2,7 +2,7 @@
 
 ## Overview
 
-A personal portfolio website for **[solomonbell.com](https://solomonbell.com)**, built with Next.js (App Router), React, TypeScript, and Tailwind CSS. The site presents projects, certificates, hobbies, and contact information through a cohesive dark-themed UI with an interactive flip-card system, alongside a **Personal Investment Portfolio** showcase section built on a fully custom, tested financial engine.
+A personal portfolio website for **[solomonbell.com](https://solomonbell.com)**, built with Next.js (App Router), React, TypeScript, and Tailwind CSS. The site presents projects, certificates, athletics, and contact information through a cohesive dark-themed UI with an interactive flip-card system, alongside a **Personal Investment Portfolio** showcase section built on a fully custom, tested financial engine.
 
 **Important:** the Investing section is currently in **placeholder mode**. It displays clearly-labeled sample holdings and mock performance data — see [Investing / Portfolio Section](#investing--portfolio-section) below. It does not currently represent any real investment activity.
 
@@ -29,7 +29,7 @@ The site is deployed on Vercel with the custom domain managed through Cloudflare
 - **Horizontal scroll carousels** — projects and certificates browse naturally on any screen size without pagination
 - **Personal Investment Portfolio showcase** — an interactive performance chart, benchmark comparison, and holdings display; see [below](#investing--portfolio-section) for full detail
 - **Responsive, mobile-first layout** — consistent experience across phones, tablets, and desktops
-- **Single-page navigation** — anchor-linked sections (About, Projects, Investing, Certificates, Hobbies, Contact) with a sticky navbar
+- **Single-page navigation** — anchor-linked sections (About, Projects, Investing, Certificates, Athletics, Contact) with a sticky navbar
 - **Resume download** — direct link to a hosted resume from the navbar
 - **Google Analytics** — page-view tracking injected conditionally via environment variable, with no client-side bundle cost when the ID is absent
 - **Vercel deployment** — zero-config CI/CD on every push to `main`
@@ -58,7 +58,7 @@ app/
 │   ├── Projects.tsx              # Horizontal scroll of ProjectFlipCards
 │   ├── Investing.tsx             # Personal Investment Portfolio section (see below)
 │   ├── Certificates.tsx          # Horizontal scroll of CertFlipCards
-│   ├── Hobbies.tsx               # Personal interests
+│   ├── Athletics.tsx             # Rowing background and training
 │   └── Contact.tsx               # Email, LinkedIn, GitHub links
 │
 ├── lib/

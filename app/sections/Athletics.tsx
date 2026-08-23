@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-export default function Hobbies() {
+export default function Athletics() {
   return (
     <section
-      id="hobbies"
+      id="athletics"
       className="mx-auto max-w-5xl px-6 py-16 border-t border-white/10"
     >
       <div className="grid gap-10 md:grid-cols-[180px_1fr]">
@@ -18,7 +18,7 @@ export default function Hobbies() {
 
         <div>
           <h2 className="text-2xl font-semibold tracking-tight text-center">
-            Hobbies
+            Athletics
           </h2>
 
           <div className="mt-4 max-w-3xl space-y-4 text-neutral-300 leading-relaxed">
