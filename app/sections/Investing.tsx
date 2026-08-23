@@ -119,7 +119,28 @@ export default function Investing() {
           the potential to outperform the market over the long term. I look for
           durable competitive advantages, strong opportunities for sustained growth,
           and businesses whose long-term prospects I believe are not fully reflected
-          in their current valuation.
+          in their current valuation. Sustained market outperformance is a difficult
+          benchmark: according to S&P Dow Jones Indices, just{" "}
+          <a
+            href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2025.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white underline underline-offset-4 decoration-white/30 hover:decoration-white/70 transition"
+          >
+            14.41%
+          </a>{" "}
+          of actively managed U.S. large-cap funds beat the S&P 500 over the 10
+          years ending in 2025, and only{" "}
+          <a
+            href="https://www.spglobal.com/spdji/en/documents/spiva/spiva-us-year-end-2025.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white underline underline-offset-4 decoration-white/30 hover:decoration-white/70 transition"
+          >
+            10.07%
+          </a>{" "}
+          did so over 15 years. My goal is to achieve that kind of sustained
+          outperformance over the long term.
         </p>
       </div>
     </section>
