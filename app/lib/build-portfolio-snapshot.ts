@@ -145,19 +145,7 @@ export async function buildPortfolioSnapshot(
     qqqReturn
   );
 
-  const latestValuation = valuations[valuations.length - 1];
-  const latestPrices: Record<string, number> = {};
-  for (const { ticker, prices } of holdingFetches) {
-    const latest = prices.find((p) => p.date === asOfDate) ?? prices[prices.length - 1];
-    latestPrices[ticker] = latest.close;
-  }
-
-  const holdings = computeHoldingsSnapshot(
-    transactions,
-    latestValuation.positions,
-    latestPrices,
-    options.tickerNames
-  );
+  const holdings = computeHoldingsSnapshot(transactions, valuations, options.tickerNames);
 
   const snapshot: PortfolioSnapshot = {
     asOfDate,

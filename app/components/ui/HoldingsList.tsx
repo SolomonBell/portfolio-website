@@ -1,10 +1,24 @@
-import { formatPercent, type Holding } from "../../lib/investing";
+import {
+  formatPercent,
+  getHoldingReturnForRange,
+  type Holding,
+  type RangeKey,
+} from "../../lib/investing";
 
-export default function HoldingsList({ holdings }: { holdings: Holding[] }) {
+export default function HoldingsList({
+  holdings,
+  range,
+  asOfDate,
+}: {
+  holdings: Holding[];
+  range: RangeKey;
+  asOfDate: string;
+}) {
   return (
     <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
       {holdings.map((h) => {
-        const positive = h.totalReturnPct >= 0;
+        const returnPct = getHoldingReturnForRange(h, range, asOfDate);
+        const positive = returnPct !== null && returnPct >= 0;
         return (
           <div
             key={h.ticker}
@@ -14,10 +28,14 @@ export default function HoldingsList({ holdings }: { holdings: Holding[] }) {
               <span className="font-medium text-white">{h.ticker}</span>
               <span
                 className={`text-sm tabular-nums ${
-                  positive ? "text-emerald-400" : "text-red-400"
+                  returnPct === null
+                    ? "text-neutral-500"
+                    : positive
+                      ? "text-emerald-400"
+                      : "text-red-400"
                 }`}
               >
-                {formatPercent(h.totalReturnPct)}
+                {returnPct === null ? "—" : formatPercent(returnPct)}
               </span>
             </div>
             <p className="mt-0.5 truncate text-sm text-neutral-400">{h.name}</p>

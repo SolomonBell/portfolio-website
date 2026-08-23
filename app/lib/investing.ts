@@ -31,11 +31,25 @@ export type PerformancePoint = {
   qqq: number;
 };
 
+export type HoldingPerformancePoint = {
+  date: string;
+  /** Cumulative price-return % since this holding's current open
+   * position began — see `getHoldingReturnForRange`. */
+  cumulativeReturnPct: number;
+};
+
 export type Holding = {
   ticker: string;
   name: string;
+  /** Current % of portfolio value — does not change with the selected
+   * chart range. */
   allocationPct: number;
-  totalReturnPct: number;
+  /** Price-return history since the holding's current open-position
+   * inception (its most recent buy that started from zero shares).
+   * `getHoldingReturnForRange` derives the displayed return for
+   * whichever range is selected from this — never a single static
+   * number, since "the return" depends on the comparison window. */
+  performance: HoldingPerformancePoint[];
 };
 
 export type PortfolioSnapshot = {
@@ -237,14 +251,56 @@ const intraday: PerformancePoint[] = portfolioIntraday.map((p, i) => ({
   qqq: qqqIntraday[i].value,
 }));
 
-const holdings: Holding[] = [
-  { ticker: "NVDA", name: "NVIDIA Corp.", allocationPct: 24, totalReturnPct: 61.8 },
-  { ticker: "MSFT", name: "Microsoft Corp.", allocationPct: 21, totalReturnPct: 24.3 },
-  { ticker: "AAPL", name: "Apple Inc.", allocationPct: 18, totalReturnPct: 12.7 },
-  { ticker: "GOOGL", name: "Alphabet Inc.", allocationPct: 16, totalReturnPct: 19.5 },
-  { ticker: "AMZN", name: "Amazon.com Inc.", allocationPct: 13, totalReturnPct: 15.1 },
-  { ticker: "JPM", name: "JPMorgan Chase & Co.", allocationPct: 8, totalReturnPct: 9.4 },
-];
+/**
+ * Deterministic per-holding price-return series, each starting from a
+ * different point in `dates` — this intentionally mirrors real
+ * portfolios where holdings are acquired at different times, so
+ * switching the chart's range visibly demonstrates the holding-inception
+ * clamp: a range longer than a holding's own history is clamped to that
+ * holding's actual (mock) inception date rather than showing performance
+ * from before it was "owned". NVDA/MSFT/AAPL are long-held (near the
+ * full mock history); GOOGL/AMZN are more recent; JPM is a recent
+ * addition (~2 months of mock history).
+ */
+function generateHoldingPerformance(
+  datesSlice: string[],
+  dailyMean: number,
+  dailyVol: number,
+  seed: number
+): HoldingPerformancePoint[] {
+  const rand = mulberry32(seed);
+  const points: HoldingPerformancePoint[] = [
+    { date: datesSlice[0], cumulativeReturnPct: 0 },
+  ];
+  let growth = 1;
+  for (let i = 1; i < datesSlice.length; i++) {
+    const dailyReturn = dailyMean + dailyVol * seededGaussian(rand);
+    growth *= 1 + dailyReturn;
+    points.push({ date: datesSlice[i], cumulativeReturnPct: (growth - 1) * 100 });
+  }
+  return points;
+}
+
+const HOLDING_CONFIGS = [
+  { ticker: "NVDA", name: "NVIDIA Corp.", allocationPct: 24, inceptionIndex: 0, dailyMean: 0.0009, dailyVol: 0.021, seed: 501 },
+  { ticker: "MSFT", name: "Microsoft Corp.", allocationPct: 21, inceptionIndex: 40, dailyMean: 0.0006, dailyVol: 0.013, seed: 502 },
+  { ticker: "AAPL", name: "Apple Inc.", allocationPct: 18, inceptionIndex: 90, dailyMean: 0.00045, dailyVol: 0.012, seed: 503 },
+  { ticker: "GOOGL", name: "Alphabet Inc.", allocationPct: 16, inceptionIndex: TRADING_DAYS - 252, dailyMean: 0.0007, dailyVol: 0.014, seed: 504 },
+  { ticker: "AMZN", name: "Amazon.com Inc.", allocationPct: 13, inceptionIndex: TRADING_DAYS - 126, dailyMean: 0.0005, dailyVol: 0.015, seed: 505 },
+  { ticker: "JPM", name: "JPMorgan Chase & Co.", allocationPct: 8, inceptionIndex: TRADING_DAYS - 42, dailyMean: 0.0004, dailyVol: 0.009, seed: 506 },
+] as const;
+
+const holdings: Holding[] = HOLDING_CONFIGS.map((cfg) => ({
+  ticker: cfg.ticker,
+  name: cfg.name,
+  allocationPct: cfg.allocationPct,
+  performance: generateHoldingPerformance(
+    dates.slice(cfg.inceptionIndex),
+    cfg.dailyMean,
+    cfg.dailyVol,
+    cfg.seed
+  ),
+})).sort((a, b) => b.allocationPct - a.allocationPct);
 
 export const mockPortfolio: PortfolioSnapshot = {
   asOfDate: AS_OF_DATE,
@@ -255,13 +311,28 @@ export const mockPortfolio: PortfolioSnapshot = {
 
 // --- Selectors ----------------------------------------------------------
 
-type DailyRangeKey = Exclude<RangeKey, "1D" | "5D">;
-
-function rangeStartDate(range: DailyRangeKey, asOfISO: string): Date {
+/**
+ * Nominal (pre-inception-clamp) start date for a given range. Excludes
+ * "1D" — there is no daily-granularity notion of a 1-day window; 1D is
+ * handled separately wherever it's still meaningful (the main chart's
+ * intraday series) and is explicitly unavailable for per-holding returns
+ * (see `getHoldingReturnForRange`).
+ *
+ * Exported so both the main chart's range logic and the per-holding
+ * return logic below share exactly one implementation of "what does
+ * each range mean as a calendar window" — this is also reused by the
+ * server-side portfolio engine's range helper (app/lib/portfolio/range.ts
+ * has its own copy for its narrower EngineRangeKey, which excludes 1D/5D
+ * entirely since the real engine has no intraday source at all).
+ */
+export function rangeStartDate(range: Exclude<RangeKey, "1D">, asOfISO: string): Date {
   const asOf = new Date(`${asOfISO}T00:00:00Z`);
   const start = new Date(asOf);
 
   switch (range) {
+    case "5D":
+      start.setUTCDate(start.getUTCDate() - 5);
+      return start;
     case "1M":
       start.setUTCMonth(start.getUTCMonth() - 1);
       return start;
@@ -281,6 +352,14 @@ function rangeStartDate(range: DailyRangeKey, asOfISO: string): Date {
   }
 }
 
+/** Shared compounding-rebase step: given a cumulative-%-since-inception
+ * value and a new base value, returns the cumulative % relative to that
+ * base. Used by both `rebaseSeries` (3 series at once) and
+ * `rebaseHoldingSeries` (1 series) so the actual math lives in one place. */
+function rebaseCumulativeValue(value: number, baseValue: number): number {
+  return ((1 + value / 100) / (1 + baseValue / 100) - 1) * 100;
+}
+
 /**
  * Exported so the server-side portfolio engine (app/lib/portfolio/range.ts)
  * can reuse this exact compounding-rebase math for real data instead of
@@ -292,15 +371,61 @@ export function rebaseSeries(slice: PerformancePoint[]): PerformancePoint[] {
   if (slice.length === 0) return [];
 
   const base = slice[0];
-  const rebase = (value: number, baseValue: number) =>
-    ((1 + value / 100) / (1 + baseValue / 100) - 1) * 100;
-
   return slice.map((p) => ({
     date: p.date,
-    portfolio: rebase(p.portfolio, base.portfolio),
-    spy: rebase(p.spy, base.spy),
-    qqq: rebase(p.qqq, base.qqq),
+    portfolio: rebaseCumulativeValue(p.portfolio, base.portfolio),
+    spy: rebaseCumulativeValue(p.spy, base.spy),
+    qqq: rebaseCumulativeValue(p.qqq, base.qqq),
   }));
+}
+
+/** Same rebase as `rebaseSeries`, for a single-value holding series. */
+export function rebaseHoldingSeries(
+  slice: HoldingPerformancePoint[]
+): HoldingPerformancePoint[] {
+  if (slice.length === 0) return [];
+
+  const base = slice[0];
+  return slice.map((p) => ({
+    date: p.date,
+    cumulativeReturnPct: rebaseCumulativeValue(p.cumulativeReturnPct, base.cumulativeReturnPct),
+  }));
+}
+
+/**
+ * Resolves a holding's displayed return for the currently selected chart
+ * range: `effectiveStartDate = max(selectedRangeStart, holdingInception)`
+ * — a holding can never show performance from before it was owned (in
+ * its current open-position period; see `computeHoldingPerformance` for
+ * how the real engine determines that period across a sell/re-entry).
+ *
+ * Returns `null` for "1D" and for a holding with no performance history
+ * at all (not currently held, or genuinely no data) — this never
+ * fabricates a value; the UI is expected to render an explicit "—" for
+ * `null` rather than falling back to 0% or a stale number.
+ */
+export function getHoldingReturnForRange(
+  holding: Holding,
+  range: RangeKey,
+  asOfDate: string
+): number | null {
+  if (range === "1D") return null;
+
+  const series = holding.performance;
+  if (series.length === 0) return null;
+
+  const holdingInception = new Date(`${series[0].date}T00:00:00Z`);
+  const nominalStart = rangeStartDate(range, asOfDate);
+  const start = nominalStart < holdingInception ? holdingInception : nominalStart;
+
+  const startIndex = Math.max(
+    0,
+    series.findIndex((p) => new Date(p.date) >= start)
+  );
+
+  const rebased = rebaseHoldingSeries(series.slice(startIndex));
+  const last = rebased[rebased.length - 1];
+  return last ? last.cumulativeReturnPct : null;
 }
 
 /**

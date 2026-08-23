@@ -99,7 +99,11 @@ export default function Investing() {
           Holdings
         </h3>
         <div className="mt-4">
-          <HoldingsList holdings={mockPortfolio.holdings} />
+          <HoldingsList
+            holdings={mockPortfolio.holdings}
+            range={range}
+            asOfDate={mockPortfolio.asOfDate}
+          />
         </div>
       </div>
 

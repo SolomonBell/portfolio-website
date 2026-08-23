@@ -24,6 +24,12 @@ export type DailyValuation = {
   /** sum(shares_i * price_i) for all open positions, in whichever price
    * convention was requested (see `PriceConvention`). */
   marketValue: number;
+  /** ticker -> that position's own dollar value on this date, in the
+   * same price convention as `marketValue` (i.e. already split-rescaled
+   * where applicable — `marketValue` is the sum of these). Exposed so a
+   * per-holding return series can be derived without recomputing the
+   * split-rescale math itself (see portfolio/holdings.ts). */
+  perTickerValue: Record<string, number>;
   /** cash + marketValue */
   totalValue: number;
   /** net deposits minus withdrawals that occurred on this date (0 most days) */
@@ -157,18 +163,22 @@ export function buildDailyValuations(
 
     let marketValue = 0;
     const positions: Record<string, number> = {};
+    const perTickerValue: Record<string, number> = {};
     for (const [ticker, shares] of Object.entries(state.shares)) {
       if (shares <= 1e-9) continue;
       positions[ticker] = shares;
 
       const price = priceOn(priceHistory, ticker, date);
+      let value: number;
       if (priceConvention === "split-adjusted") {
         const total = totalSplitFactor[ticker] ?? 1;
         const applied = appliedSplitFactor[ticker] ?? 1;
-        marketValue += shares * (total / applied) * price;
+        value = shares * (total / applied) * price;
       } else {
-        marketValue += shares * price;
+        value = shares * price;
       }
+      perTickerValue[ticker] = value;
+      marketValue += value;
     }
 
     valuations.push({
@@ -176,6 +186,7 @@ export function buildDailyValuations(
       cash: state.cash,
       positions,
       marketValue,
+      perTickerValue,
       totalValue: state.cash + marketValue,
       externalFlow,
       dividendFlow,

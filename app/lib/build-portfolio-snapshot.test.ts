@@ -59,7 +59,9 @@ describe("2 — one funded portfolio", () => {
       name: "Apple Inc.",
       allocationPct: 100,
     });
-    expect(result.snapshot.holdings[0].totalReturnPct).toBeCloseTo(10, 6);
+    expect(result.snapshot.holdings[0].performance).toHaveLength(3);
+    expect(result.snapshot.holdings[0].performance[0].cumulativeReturnPct).toBeCloseTo(0, 6);
+    expect(result.snapshot.holdings[0].performance[2].cumulativeReturnPct).toBeCloseTo(10, 6);
   });
 });
 
@@ -198,7 +200,7 @@ describe("8 — provider error propagation", () => {
 });
 
 describe("9 — public snapshot contains no dollar/share/private values", () => {
-  it("holdings objects contain exactly ticker, name, allocationPct, totalReturnPct", async () => {
+  it("holdings objects contain exactly ticker, name, allocationPct, performance", async () => {
     const transactions: Transaction[] = [
       { id: "d1", date: "2026-08-18", type: "DEPOSIT", amount: 1000 },
       { id: "b1", date: "2026-08-18", type: "BUY", ticker: "AAPL", shares: 5, price: 200 },
@@ -214,8 +216,11 @@ describe("9 — public snapshot contains no dollar/share/private values", () => 
 
     for (const holding of result.snapshot.holdings) {
       expect(Object.keys(holding).sort()).toEqual(
-        ["allocationPct", "name", "ticker", "totalReturnPct"].sort()
+        ["allocationPct", "name", "performance", "ticker"].sort()
       );
+      for (const point of holding.performance) {
+        expect(Object.keys(point).sort()).toEqual(["cumulativeReturnPct", "date"].sort());
+      }
     }
     for (const point of result.snapshot.performance) {
       expect(Object.keys(point).sort()).toEqual(["date", "portfolio", "qqq", "spy"].sort());
