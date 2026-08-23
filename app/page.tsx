@@ -3,7 +3,10 @@ import Hero from "./sections/Hero";
 import About from "./sections/About";
 import Projects from "./sections/Projects";
 import Investing from "./sections/Investing";
-import Certificates from "./sections/Certificates";
+// Certificates section temporarily hidden from the public site — the
+// implementation is preserved; uncomment this import and the <Certificates />
+// render below (and the nav entry in app/lib/constants.ts) to restore it.
+// import Certificates from "./sections/Certificates";
 import Athletics from "./sections/Athletics";
 import Contact from "./sections/Contact";
 
@@ -15,7 +18,7 @@ export default function Home() {
       <About />
       <Projects />
       <Investing />
-      <Certificates />
+      {/* <Certificates /> */}
       <Athletics />
       <Contact />
     </main>
