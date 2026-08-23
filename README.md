@@ -2,7 +2,7 @@
 
 ## Overview
 
-A personal portfolio website for **[solomonbell.com](https://solomonbell.com)**, built with Next.js (App Router), React, TypeScript, and Tailwind CSS. The site presents projects, athletics, and contact information through a cohesive dark-themed UI with an interactive flip-card system, alongside a **Personal Investment Portfolio** showcase section built on a fully custom, tested financial engine.
+A personal portfolio website for **[solomonbell.com](https://solomonbell.com)**, built with Next.js (App Router), React, TypeScript, and Tailwind CSS. The site presents projects, certificates, athletics, and contact information through a cohesive dark-themed UI with an interactive flip-card system, alongside a **Personal Investment Portfolio** showcase section built on a fully custom, tested financial engine.
 
 **Important:** the Investing section is currently in **placeholder mode**. It displays clearly-labeled sample holdings and mock performance data — see [Investing / Portfolio Section](#investing--portfolio-section) below. It does not currently represent any real investment activity.
 
@@ -25,16 +25,14 @@ The site is deployed on Vercel with the custom domain managed through Cloudflare
 
 ## Features
 
-- **Interactive flip cards** — project cards reveal detail on hover (desktop) or tap (mobile), using pointer-type detection to drive distinct interaction modes
-- **Horizontal scroll carousel** — projects browse naturally on any screen size without pagination
+- **Interactive flip cards** — project and certificate cards reveal detail on hover (desktop) or tap (mobile), using pointer-type detection to drive distinct interaction modes
+- **Horizontal scroll carousels** — projects and certificates browse naturally on any screen size without pagination
 - **Personal Investment Portfolio showcase** — an interactive performance chart, benchmark comparison, and holdings display; see [below](#investing--portfolio-section) for full detail
 - **Responsive, mobile-first layout** — consistent experience across phones, tablets, and desktops
-- **Single-page navigation** — anchor-linked sections (About, Projects, Investing, Athletics, Contact) with a sticky navbar
+- **Single-page navigation** — anchor-linked sections (About, Projects, Investing, Certificates, Athletics, Contact) with a sticky navbar
 - **Resume download** — direct link to a hosted resume from the navbar
 - **Google Analytics** — page-view tracking injected conditionally via environment variable, with no client-side bundle cost when the ID is absent
 - **Vercel deployment** — zero-config CI/CD on every push to `main`
-
-> **Certificates section — currently hidden:** a Certificates section (with its own flip-card variant, `CertFlipCard`) is fully implemented but temporarily disabled on the public site. The implementation, data, and assets are untouched — only the import/render in `app/page.tsx` and the nav entry in `app/lib/constants.ts` are commented out. Uncomment both to restore it.
 
 ## Project Structure
 
@@ -50,7 +48,7 @@ app/
 │   └── ui/
 │       ├── FlipCard.tsx              # Generic flip-card primitive
 │       ├── ProjectFlipCard.tsx       # Project variant — image front, skills + links back
-│       ├── CertFlipCard.tsx          # Certificate variant — image front, skills back (unused while Certificates is hidden)
+│       ├── CertFlipCard.tsx          # Certificate variant — image front, skills back
 │       ├── PerformanceChart.tsx      # Recharts line chart + hover tooltip for Investing
 │       └── HoldingsList.tsx          # Holdings allocation cards for Investing
 │
@@ -59,7 +57,7 @@ app/
 │   ├── About.tsx                 # Background, school, location
 │   ├── Projects.tsx              # Horizontal scroll of ProjectFlipCards
 │   ├── Investing.tsx             # Personal Investment Portfolio section (see below)
-│   ├── Certificates.tsx          # Horizontal scroll of CertFlipCards (implemented, not currently rendered — see note above)
+│   ├── Certificates.tsx          # Horizontal scroll of CertFlipCards
 │   ├── Athletics.tsx             # Rowing background and training
 │   └── Contact.tsx               # Email, LinkedIn, GitHub links
 │
@@ -343,7 +341,7 @@ GitHub → Vercel → solomonbell.com
 
 - Add project detail pages with full write-ups, architecture diagrams, and lessons learned
 - Integrate a lightweight CMS (e.g. Contentlayer or MDX) to manage project and certificate data without touching component code
-- Restore the Certificates section (currently hidden — see note above) and expand it with additional coursework and professional certifications
+- Expand the Certificates section with additional coursework and professional certifications
 - Add scroll-triggered entrance animations using the Intersection Observer API
 - Improve accessibility with ARIA labels on interactive cards and skip-to-content navigation
 

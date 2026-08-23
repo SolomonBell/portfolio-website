@@ -2,6 +2,21 @@ import CertFlipCard, { type Certificate } from "../components/ui/CertFlipCard";
 
 const certificates: Certificate[] = [
   {
+    id: "bloomberg",
+    title: "Bloomberg Market Concepts",
+    subtitle: "Bloomberg · 10 hours",
+    image: "/images/certificates/market-concepts.jpg",
+    skills: [
+      "Bloomberg Terminal",
+      "Fixed Income",
+      "Equities",
+      "Capital Markets",
+      "Bonds",
+      "Equity Capital Markets",
+    ],
+    backClassName: "bg-neutral-900",
+  },
+  {
     id: "python",
     title: "Python for Everybody\nSpecialization",
     subtitle: "University of Michigan · 76 hours",
@@ -30,21 +45,6 @@ const certificates: Certificate[] = [
       "Debugging",
       "Data Structures",
       "Algorithm Analysis",
-    ],
-    backClassName: "bg-neutral-900",
-  },
-  {
-    id: "bloomberg",
-    title: "Bloomberg Market Concepts",
-    subtitle: "Bloomberg · 10 hours",
-    image: "/images/certificates/market-concepts.jpg",
-    skills: [
-      "Bloomberg Terminal",
-      "Fixed Income",
-      "Equities",
-      "Capital Markets",
-      "Bonds",
-      "Equity Capital Markets",
     ],
     backClassName: "bg-neutral-900",
   },

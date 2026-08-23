@@ -17,9 +17,7 @@ export const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Projects", href: "#projects" },
   { label: "Investing", href: "#investing" },
-  // Certificates section temporarily hidden from the public site — see
-  // app/page.tsx. Uncomment to restore the nav link.
-  // { label: "Certificates", href: "#certificates" },
+  { label: "Certificates", href: "#certificates" },
   { label: "Athletics", href: "#athletics" },
   { label: "Contact", href: "#contact" },
 ];
