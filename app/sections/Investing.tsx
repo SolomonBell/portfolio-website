@@ -35,7 +35,7 @@ export default function Investing() {
 
       <div className="mt-10 rounded-2xl border border-white/10 bg-white/3 p-5 sm:p-6">
         <h3 className="text-center text-lg font-medium text-white">
-          Placeholder Portfolio
+          Draft Placeholder Portfolio
         </h3>
 
         <div className="mt-4 flex gap-4 overflow-x-auto border-b border-white/10 sm:gap-6">
