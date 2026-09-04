@@ -30,7 +30,7 @@ export default function Investing() {
       className="mx-auto max-w-5xl px-6 py-16 border-t border-white/10"
     >
       <h2 className="text-2xl font-semibold tracking-tight text-center">
-        Investment Portfolio
+        Draft Investment Portfolio
       </h2>
 
       <div className="mt-10 rounded-2xl border border-white/10 bg-white/3 p-5 sm:p-6">
