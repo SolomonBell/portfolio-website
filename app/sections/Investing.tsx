@@ -187,8 +187,9 @@ function DisclaimerControl() {
             className="absolute bottom-full right-0 z-50 mb-2 w-64 rounded-lg border border-white/10 bg-neutral-900 p-3 text-left text-xs leading-relaxed text-neutral-300 shadow-xl"
           >
             Placeholder portfolio — holdings and performance shown are illustrative
-            sample data while the live portfolio is being established. This is not
-            investment advice and does not reflect actual results.
+            sample data for demonstration purposes. No live investment portfolio
+            currently exists. This is not investment advice and does not reflect
+            actual results.
           </div>
         </>
       )}
