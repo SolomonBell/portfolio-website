@@ -33,6 +33,7 @@ const projects: Project[] = [
     ],
     subtitle: "Client Project",
     image: "/images/maintenance-script.jpg",
+    imageFit: "contain",
     collaboration: "collaborative",
     collaborationHref: "https://www.reliablestorage.com/",
   },
@@ -69,6 +70,7 @@ const projects: Project[] = [
     ],
     subtitle: "Client Project",
     image: "/images/maintenance-script.jpg",
+    imageFit: "contain",
     collaboration: "collaborative",
     collaborationHref: "https://www.reliablestorage.com/",
   },
@@ -101,6 +103,43 @@ const projects: Project[] = [
     collaboration: "solo",
   },
   {
+    title: "DropletML",
+    description:
+      "Developing CNN-based crystallization phase classification for aerosol droplets as part of a four-person Senior Design team at Bucknell University. Building upon a desktop application developed by a previous four-person team, which implemented the UI/UX and automated droplet detection and tracking, our work focuses on machine learning classification of droplet crystallization phases.",
+    skills: [
+      "Python",
+      "Computer Vision",
+      "Machine Learning",
+      "CNNs",
+      "Image Classification",
+      "PyQt",
+      "Model Evaluation",
+      "Video Processing",
+      "Scientific Computing",
+    ],
+    links: [],
+    subtitle: "Senior Design Project",
+    image: "/images/dropletml-preview.jpg",
+    collaboration: "collaborative",
+    collaborationHref: "https://www.bucknell.edu/",
+    attribution:
+      "Building on a previous Senior Design team's UI/UX and droplet detection/tracking system. Our team focuses on CNN-based crystallization phase classification.",
+    teamMembers: [
+      {
+        label: "Alex Searle",
+        href: "https://www.linkedin.com/in/scott-alex-searle/",
+      },
+      {
+        label: "Avery Hood",
+        href: "https://www.linkedin.com/in/avery-hood-b47660290/",
+      },
+      {
+        label: "Sumit Dhad",
+        href: "https://www.linkedin.com/in/sumit-dhar1/",
+      },
+    ],
+  },
+  {
     title: "Flashcards Platform",
     description:
       "Built a spaced-repetition web app for multi-user classrooms with shared decks, AI grading, and flashcard generation. Implemented staged recall algorithms, dual-storage architecture, a Node.js AI proxy, and session analytics with CSV export while refining the product through stakeholder interviews.",
@@ -126,6 +165,7 @@ const projects: Project[] = [
     ],
     subtitle: "Personal Project",
     image: "/images/flashcards-preview.jpg",
+    imageFit: "contain",
     collaboration: "collaborative",
   },
 ];
