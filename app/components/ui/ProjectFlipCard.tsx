@@ -38,7 +38,7 @@ function TeamMembers({ members }: { members: ProjectLink[] }) {
         onClick={(e) => { e.stopPropagation(); setOpen((o) => !o); }}
         className="flex items-center gap-1.5 text-xs font-medium text-white/60 hover:text-neutral-200 transition cursor-pointer"
       >
-        Team Members ({members.length})
+        Team Members
         <svg
           aria-hidden="true"
           viewBox="0 0 12 12"
