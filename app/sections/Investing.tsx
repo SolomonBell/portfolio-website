@@ -30,7 +30,7 @@ export default function Investing() {
       className="mx-auto max-w-5xl px-6 py-16 border-t border-white/10"
     >
       <h2 className="text-2xl font-semibold tracking-tight text-center">
-        Draft Investment Portfolio
+        Personal Equity Portfolio (Coming Soon)
       </h2>
 
       <div className="mt-10 rounded-2xl border border-white/10 bg-white/3 p-5 sm:p-6">
@@ -96,7 +96,7 @@ export default function Investing() {
 
       <div className="mt-10">
         <h3 className="text-sm font-medium text-neutral-400 tracking-wide uppercase">
-          Holdings
+          Placeholder Holdings
         </h3>
         <div className="mt-4">
           <HoldingsList
@@ -108,6 +108,9 @@ export default function Investing() {
       </div>
 
       <div className="mt-10 space-y-4 text-neutral-300 leading-relaxed">
+        {/* Original Personal Equity Portfolio Description — Restore Winter Break 2026
+            (To restore: delete the replacement <p> below and uncomment these two paragraphs.)
+
         <p className="indent-8">
           I actively manage a personal equity portfolio with the goal of outperforming
           the broader market over the long term. The chart above tracks my
@@ -141,6 +144,13 @@ export default function Investing() {
           </a>{" "}
           did so over 15 years. My goal is to achieve that kind of sustained
           outperformance over the long term.
+        </p>
+        */}
+        <p className="indent-8">
+          This section is currently under development. No investments have been
+          purchased, and the portfolio is not yet active. Any charts or performance
+          data displayed are placeholders and do not represent actual investment
+          returns.
         </p>
       </div>
     </section>

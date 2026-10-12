@@ -45,6 +45,7 @@ export default function Contact() {
           Resume
         </a>
 
+        {/* Cover Letter — temporarily hidden from the site. Uncomment to restore.
         <a
           href="https://docs.google.com/document/d/1cf_fZplzz8HdyWW4NK8iLAygDTYfmFsHoJkH2bDfpEw/edit?usp=sharing"
           target="_blank"
@@ -53,6 +54,7 @@ export default function Contact() {
         >
           Cover Letter
         </a>
+        */}
       </div>
     </section>
   );
