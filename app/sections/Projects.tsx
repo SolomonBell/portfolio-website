@@ -134,7 +134,7 @@ const projects: Project[] = [
         href: "https://www.linkedin.com/in/avery-hood-b47660290/",
       },
       {
-        label: "Sumit Dhad",
+        label: "Sumit Dhar",
         href: "https://www.linkedin.com/in/sumit-dhar1/",
       },
     ],
